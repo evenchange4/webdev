@@ -24,6 +24,21 @@
     location.search = ''; // clear search
   }
 
+  // enable highlighting for all <pre><code> elements
+  $('pre>code').each(function(){
+    var $this = $(this),
+        lang = $this.parent().data('lang');
+    // Only do highlighting only when not contained in sample-container
+    if($this.parents('.sample-container').length){
+      return;
+    }
+
+    if(lang){
+      $(this).html( hljs.highlight(lang, $(this).text()).value );
+    }else{
+      $(this).html( hljs.highlightAuto($(this).text()).value );
+    }
+  });
 
   // initialize Reveal
   Reveal.initialize({

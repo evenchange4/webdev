@@ -1,0 +1,553 @@
+:title 學 Javascript
+
+:description 不囉唆學 Javascript reveal.js 製作的 HTML / CSS / JS 投影片。
+:author MrOrz
+:email johnsonliang7@gmail.com
+
+:stylesheet_link_tag css/main.css, css/styles.css, css/sample.css, css/jquery-ui.css
+:stylesheet_link_tag css/ruler.css, lib/zenburn.css
+
+:javascript_include_tag js/jquery.min.js
+:javascript_include_tag https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js
+:javascript_include_tag js/reveal.js, lib/highlight.js, js/sample.js, js/init-js.js, js/index.js
+
+!SLIDE
+  Javascript
+  ===
+  {:.nav}
+  * [html.html](HTML)
+  * [css.html](CSS)
+  * [advancedjs.html](Advanced JS)
+
+!SLIDE
+  長這樣
+  -----
+  {:.demo.small}
+  ~~~
+    var form = document.getElementById('submitform');
+    form.addEventListener('submit', function(e){
+      var checkbox = document.getElementById('tos');
+      if(!checkbox.checked){
+        alert('請詳閱出師表。');
+        e.preventDefault();
+      }
+    });
+    form.addEventListener('focus', function(){
+      console.log('focus');
+    })
+  ~~~
+
+    * Javascript 操作 DOM (HTML 的 API) 的範例。
+    * 變數需要事先定義，但不指定型別。
+
+{:.chapter}
+!SLIDE
+  牛刀小試
+  --------
+
+!STACK
+  !SLIDE
+    怎麼寫
+    ------
+    `ctrl + shift + j` 打開 Javascript Console。
+
+    ![images/js/console.png](Javascript console)。
+
+    輸入一行 Javascript (黑色)，輸出一行回傳值 （藍色）
+
+  !SLIDE
+    變數與型別
+    ----------
+    * Javascript 為弱型別（weak typing）語言
+    * 用 `var` 敘述定義變數，變數可以是任何型態的東西
+    * 但不代表 Javascript 沒有型態；亂弄會出錯。
+    * 大小寫敏感
+
+    ~~~
+      var a = "str";
+      a = {}; // 換型態
+    ~~~
+
+  !SLIDE
+    運算子
+    ------
+    +: 左右為數字的時候 → 加起兩個數字，
+    否則當成字串接起來
+
+    +=, -=
+
+  !SLIDE
+    輸出文字
+    --------
+    `console.log`
+
+  !SLIDE
+    JavaSCRIPT
+    ------
+    寫在一個檔案裡面，才有「腳本」的 FU
+
+    {:.fragment}
+    指令一行一行寫，沒有道理寫不完。
+
+    <div class="fragment">
+      <small>用 `<script type="text/javascript"></script>` 包住，放在 HTML 裡</small>
+
+      ~~~
+        &lt;script type="text/javascript"&gt;
+          console.log("<script> 標籤裡好溫暖喔 (羞)");
+        &lt;/script&gt;
+        <p>一片空白。</p>
+      ~~~
+    </div>
+
+    ----
+
+  !SLIDE
+    Javascript file
+    ---------------
+
+    * 另外寫成一個 *.js 檔
+    *  `<script type="text/javascript" src="路徑與檔名"></script>`
+
+    ~~~
+        &lt;script type="text/javascript" src="sample/included.js"&gt;&lt;/script&gt;
+        <p>仍然一片空白。</p>
+    ~~~
+
+    {:.fragment}
+    `<script>` 寫在 `<head>` 或 `<body>` 裡都可以。瀏覽器一讀到就會立即執行（Load-and-go）。
+
+  !SLIDE
+    jsfiddle
+    --------
+    用 inspector 來看一下 [http://jsfiddle.net](jsfiddle.net)。
+
+!ENDSTACK
+
+{:.chapter}
+!SLIDE
+  JS 和 C 很像
+  -----
+
+!STACK
+  !SLIDE
+    `if` 條件
+    --
+    if-else if-else-endif
+
+  !SLIDE
+    迴圈
+    ---
+    for, while
+
+  !SLIDE
+    switch case
+    -----------
+
+  !SLIDE
+    comments
+    ---
+
+  !SLIDE
+    `try-catch`
+    ---
+    catch 只有一個
+    很少用
+
+!ENDSTACK
+
+{:.chapter}
+!SLIDE
+  JS 又和 C 不一樣
+  ---
+
+!STACK
+  !SLIDE
+    Functions
+    ---
+    'first-class'
+    anonymous
+
+    function argument: 沒有 default value 喔。
+
+    function statement, function declairation
+
+  !SLIDE
+    Objects
+    ---
+    `{}`
+
+  !SLIDE
+    Augmenting Objects
+    ---
+
+
+  !SLIDE
+    Arrays
+    ---
+    `[]`
+  !SLIDE
+    Array Methods
+    ---
+    lalala
+
+!ENDSTACK
+
+{:.chapter}
+!SLIDE
+jQuery
+------
+替你操控 DOM (HTML 的 API)
+
+!STACK
+  !SLIDE
+    開始用 jQuery
+    ---
+
+    神秘咒語
+    ```
+      <script type="text/javascript"
+       src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js">
+      </script>
+    ```
+
+    然後施魔法
+
+    {:.small}
+    ~~~
+      <p></p>
+
+      &lt;script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"&gt;&lt;/script&gt;
+      &lt;script type="text/javascript"&gt;
+        $('p').text('jQuery 好 Q!');
+      &lt;/script&gt;
+    ~~~
+
+  !SLIDE
+    大改造!! 劇的 Before After
+    ---
+    物件 5927：不方便的 API
+    {:.demo-dom-native.small[data-lang=javascript]}
+    ~~~
+      // 偵測是否同意出師表
+      var form = document.querySelector('#submitform');
+
+      form.addEventListener('submit', function(e){
+        if(!document.querySelector('#tos').checked){
+          alert('請詳閱出師表。');
+          e.preventDefault();
+        }
+      });
+
+      // 增加推薦人
+      document.querySelector('.add-referral')
+              .addEventListener('click', function(){
+
+        // 開一個 buffer，建立下面架構：
+        /*
+          <p>
+            <input type="text" name="referral">
+            <a class="del" href="javascript:;">刪除</a>
+          </p>
+        */
+        var buffer = document.createDocumentFragment(),
+            p      = buffer.appendChild(
+                        document.createElement('p')),
+            txt    = p.appendChild(
+                        document.createElement('input')),
+            del    = p.appendChild(
+                        document.createElement('a'));
+
+        txt.setAttribute('type', 'text');
+        txt.setAttribute('name', 'referral');
+        del.setAttribute('class', 'del');
+        del.setAttribute('href', 'javascript:;');
+        del.innerHTML = '刪除';
+
+        // 把 buffer 內容塞進 DOM
+        document.querySelector('#referrals')
+                .appendChild(buffer);
+      });
+
+      // 刪除推薦人
+      form.addEventListener('click', function(e){
+        // 若 'click' 事件來自 <a class="del">
+        if(e.target.className === 'del'){
+          // 把包著 <a class="del"> 之 <p> 整個移除。
+          var p = e.target.parentNode;
+          p.parentNode.removeChild(p);
+        }
+      });
+    ~~~
+
+    DOM 這個 API 很長，相當困擾。
+
+  !SLIDE
+    匠：jQuery
+    ---
+
+    ### SPEC
+
+    * 表單送出時，檢查是否接受出師表
+    * 按「增加推薦人」時，蓋一個下面的東西：
+      {:.small[style=width: 400px; margin: 0 auto 1em;]}
+      ```
+        <p>
+          <input type="text" name="referral">
+          <a class="del">刪除</a>
+        </p>
+      ```
+    * 按裡頭的「刪除」時，把整個 `<p>` 移除。
+
+    ### 希望
+      寫少一點，作到的事情更多。
+
+  !SLIDE
+    BEFORE
+    ---
+    {:.demo-dom-native.small}
+    ~~~
+      var form = document.querySelector('#submitform');
+
+      // 偵測是否同意出師表
+      form.addEventListener('submit', function(e){
+        if(!document.querySelector('#tos').checked){
+          alert('請詳閱出師表。');
+          e.preventDefault();
+        }
+      });
+
+      // 增加推薦人
+      document.querySelector('.add-referral')
+              .addEventListener('click', function(){
+
+        // 開一個 buffer，建立下面架構：
+        var buffer = document.createDocumentFragment(),
+            p      = buffer.appendChild(
+                        document.createElement('p')),
+            txt    = p.appendChild(
+                        document.createElement('input')),
+            del    = p.appendChild(
+                        document.createElement('a'));
+
+        txt.setAttribute('type', 'text');
+        txt.setAttribute('name', 'referral');
+        del.setAttribute('class', 'del');
+        del.setAttribute('href', 'javascript:;');
+        del.innerHTML = '刪除';
+
+        // 把 buffer 內容塞進 DOM
+        document.querySelector('#referrals')
+                .appendChild(buffer);
+      });
+
+      // 刪除推薦人
+      form.addEventListener('click', function(e){
+        // 若 'click' 事件來自 <a class="del">
+        if(e.target.className === 'del'){
+          // 把包著 <a class="del"> 之 <p> 整個移除。
+          var p = e.target.parentNode;
+          p.parentNode.removeChild(p);
+        }
+      });
+    ~~~
+
+  !SLIDE
+    AFTER
+    ---
+
+    <!--<iframe width="150" height="40" style="position: absolute; right: 0; top: 0; opacity: 0.1;" src="http://www.youtube.com/embed/E9gfiTAhScM?rel=0" frameborder="0"></iframe>-->
+
+    なんということでしょう!
+
+    {:.demo-dom-jquery.small[data-lang=javascript]}
+    ~~~
+      $('#submitform').on('submit', function(e){
+        // 偵測是否同意出師表
+        if($('#tos').attr('checked')){
+          alert('請詳閱出師表。');
+          e.preventDefault();
+        }
+      }).on('click', '.del', function(){
+        // 刪除推薦人
+        // 把包著 <a class="del"> 之 <p> 整個移除。
+        $(this).parents('p').remove();
+      });
+
+      // 增加推薦人
+      $('.add-referral').on('click', function(){
+        // 把下面內容塞進 DOM
+        $('<p><input type="text" name="referral"><a class="del">刪除</a></p>').appendTo('#referrals');
+      });
+    ~~~
+
+!ENDSTACK
+
+{:.chapter}
+!SLIDE
+  jQuery Object
+  ---
+
+!STACK
+  !SLIDE
+    神奇的 `$`
+    ---
+
+    {:[data-lang=javascript][style=width: 220px; margin: 0 auto 1em;]}
+    ```
+      $(SELECTOR)
+    ```
+
+    * `$` 是一個 function。
+    * 傳入 [http://api.jquery.com/category/selectors/](css selector) → 回傳找到的 element
+    * 傳入 HTML tag → 回傳新蓋的 element
+
+    ---
+
+    element 被包在 jQuery obejct 裡頭。
+
+    {:[height=190]}![images/js/jqObj.png](obj)
+
+  !SLIDE
+    jQuery Object
+    ---
+
+    {:[width=900]}![images/js/jqObj.png](obj)
+
+    * 看起來像陣列
+    * 有 length 屬性
+    * 有[http://api.jquery.com](很多 method) 可以用
+
+!ENDSTACK
+
+{:.chapter}
+!SLIDE
+  jQuery API
+  ---
+
+!STACK
+  !SLIDE
+    Manipulation
+    ---
+    操弄 DOM 結構與屬性
+
+    * [http://api.jquery.com/category/css/](讀取 / 新增 class 或 CSS style)
+    * [讀取 / 新增 / 移除屬性](http://api.jquery.com/category/attributes/)
+    * 在 [http://api.jquery.com/category/manipulation/dom-insertion-inside/](裡面) [http://api.jquery.com/category/manipulation/dom-insertion-outside/](旁邊) 插入/移除 DOM element
+    * [http://api.jquery.com/category/manipulation/dom-insertion-around/](包覆)目前 DOM element
+
+    {:.jquery.small}
+    ~~~
+      // TODO:
+      // innerWidth, width, outerWidth
+      // addClass
+
+      // attr, removeAttr
+
+      // clone
+      // append, appendTo
+      // remove
+
+      // wrap
+    ~~~
+
+    ---
+
+    [http://api.jquery.com/category/manipulation/](Manipulation - jQuery API)
+
+  !SLIDE
+    Traversing
+    ---
+    從目前 element 找到另一個 element
+
+    * [http://api.jquery.com/category/traversing/tree-traversal/](找親戚)
+    * [http://api.jquery.com/category/traversing/filtering/](過濾)目前的 jQuery object
+
+    {:.jquery.small}
+    ~~~
+      // TODO:
+      // find()
+      // parentts()
+      //  all using conosole.log
+
+      // not()
+    ~~~
+
+    ---
+
+    [http://api.jquery.com/category/traversing/](Traversing - jQuery API)
+
+  !SLIDE
+    Events
+    ---
+    互動的主要要素
+
+    {:.jquery.small}
+    ~~~
+      // on
+    ~~~
+
+    ---
+
+    [http://api.jquery.com/category/events/](Events - jQuery API)
+
+  !SLIDE
+    Effects
+    ---
+    特效！
+
+    ---
+
+    [http://api.jquery.com/category/effects/](Effects - jQuery API)
+
+!ENDSTACK
+
+{:.chapter}
+!STACK
+  jQuery UI
+  ---
+
+[http://jqueryui.com/demos/](jQuery UI)
+
+!STACK
+  !SLIDE
+    jQuery UI
+    ---
+
+    * [http://jqueryui.com/demos/sortable/](拖曳等等)的互動
+    * [http://jqueryui.com/demos/dialog/](對話視窗)之類的 Widgets
+    * 更多[http://jqueryui.com/demos/show/](特效)
+
+
+{:.chapter}
+!SLIDE
+  console
+  ---
+
+!STACK
+  !SLIDE
+    console.log
+    ---
+    * 有三角形
+    * 物件可能會變
+
+  !SLIDE
+    中斷點
+    ---
+
+    * 開發人員工具的「Scripts」 面板
+    * 選擇要 debug 的檔案
+    * 中斷時可用 console
+    * "Pause on uncaught exception" 按鈕
+
+!ENDSTACK
+
+!SLIDE
+  END
+  ===
+
+  {:.nav}
+  * [html.html](HTML)
+  * [css.html](CSS)
+  * [js.html](Javascript)
+  * [advancedjs.html](Advanced JS)

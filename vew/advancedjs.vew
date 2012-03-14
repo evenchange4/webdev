@@ -1,0 +1,107 @@
+:title 學深一點的 Javascript
+
+:description 不囉唆學 Javascript reveal.js 製作的 HTML / CSS / JS 投影片。
+:author MrOrz
+:email johnsonliang7@gmail.com
+
+:stylesheet_link_tag css/main.css, css/styles.css, css/sample.css, css/jquery-ui.css
+:stylesheet_link_tag css/ruler.css, lib/zenburn.css
+
+:javascript_include_tag js/jquery.min.js
+:javascript_include_tag https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js
+:javascript_include_tag js/reveal.js, lib/highlight.js, js/sample.js, js/init-js.js, js/index.js
+
+!SLIDE
+Advanced JS
+===
+{:.nav}
+* [html.html](HTML)
+* [css.html](CSS)
+* [js.html](Javascript)
+
+<small>[http://yuiblog.com/assets/crockford/javascript.zip](The Javascript Programming Language - Douglas Crockford)</small>
+
+!SLIDE
+  `&&` 和 `||`
+  ----------------
+
+  `&&` 和 `||` 其實不一定要傳回 true 或 false。
+
+  `&&` : Guard Operator (Logical AND)
+  ```
+    data && data.result
+  ```
+  {:.fragment}
+  * `data` truthy → 回傳 data.result
+  * 保護 data.result
+  * 要不然 data 是 undefined 時會有 `TypeError: Cannot read property 'result' of undefined`
+  
+  ----
+
+  || : Default Operator (Logical OR)
+
+
+
+!SLIDE
+  why "JAVA"script?
+  ----
+
+  Oak:窗外有一橡樹，引以為號焉
+  咖啡廳會議: Java。
+
+!SLIDE
+  Javascript v.s. DOM
+  ----
+
+  DOM：HTML 的 API，讓我們用程式控制網頁內容。 
+  window, document, DOMDivElement.....: DOM elements
+  document.writeln, document.getElementByID: DOM 提供的 method。
+  每個瀏覽器的 DOM 有些差異，jQuery 把他們整合成一種。
+
+  ---
+
+  Javascript：語言本身，提供了 Object, Array, String 等型態的物件。
+
+!SLIDE
+  雞毛蒜皮：分號
+  ------
+
+  [http://mislav.uniqpath.com/2010/05/semicolons/](Semicolons in JavaScript are optional)
+  分號擁護者的理由與辯駁
+
+  這份教材:
+
+  * 有加分號
+  * 暗示有 "semicolon insertion"
+  * 沒有理由強制你用分號
+
+  說了一大堆，還是那句老話：「你自己決定吧！」 -- 劉墉
+
+!SLIDE
+  Javascript's key ideas.
+  ----
+  
+  TBD
+
+!SLIDE
+  var statements
+  ----
+
+  沒寫 var 也可以。但會變成全域變數 (Implied global)。
+  
+    * 為了要 Load-and-go，沒有 linker。
+    * Library 間用 global scope 來溝通。
+    * 建立規範時的缺陷
+    * 錯誤已經造成。CommonJS / [http://requirejs.org/](RequireJS) 嘗試修補。
+
+  function 開頭加上 "use strict". TODO: example!
+  使用 JSHint!
+
+!SLIDE
+  `<script>` 放哪裡？
+  ----
+  TODO: waterfall chart of js loading
+
+  * 放在 body tag 後面
+  * 把 js 檔案接起來
+  * 使用 javascript loader 如 head.js 或 require.js

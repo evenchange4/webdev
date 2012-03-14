@@ -57,7 +57,7 @@
 #reveal .sample-container code {
   color: inherit;
 }
-#reveal .sample-container.small pre {
+#reveal .sample-container.small pre, #reveal pre.small {
   font-size: 11px;
   line-height: 16px;
 }
@@ -121,4 +121,8 @@
 }
 #reveal .two-column {
   width: 45%;
+}
+#reveal .sample-container.demo-dom-native pre, #reveal .sample-container.demo-dom-jquery pre {
+  max-height: 350px;
+  overflow: auto;
 }
