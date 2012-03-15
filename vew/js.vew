@@ -9,7 +9,7 @@
 
 :javascript_include_tag js/jquery.min.js
 :javascript_include_tag https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js
-:javascript_include_tag js/reveal.js, lib/highlight.js, js/sample.js, js/init-js.js, js/index.js
+:javascript_include_tag js/reveal.js, lib/highlight.js, js/sample.js, js/init-js.js, js/index.js, js/ruler.js
 
 !SLIDE
   Javascript
@@ -55,31 +55,53 @@
 
     輸入一行 Javascript (黑色)，輸出一行回傳值 （藍色）
 
+    試試 `3+2`, `Math.sin(Math.PI)`, `0.1 + 0.2`
+
   !SLIDE
     變數與型別
     ----------
     * Javascript 為弱型別（weak typing）語言
-    * 用 `var` 敘述定義變數，變數可以是任何型態的東西
+    * 用 `var` 敘述定義變數
+    * 變數可以是任何型態的東西
     * 但不代表 Javascript 沒有型態；亂弄會出錯。
     * 大小寫敏感
 
-    ~~~
-      var a = "str";
-      a = {}; // 換型態
-    ~~~
+    ```
+      var a = "str", A; // a != A
+      a = 3; // 換型態
+    ```
 
   !SLIDE
     運算子
     ------
-    +: 左右為數字的時候 → 加起兩個數字，
-    否則當成字串接起來
+    * 負數 : `-` (如 `-35`)
+    * 算數 : `*` &nbsp; `/` &nbsp; `%` &nbsp; `+` &nbsp; `-` 
+    * 比大小 : `===`  &nbsp; `!==`  &nbsp; `<`  &nbsp; `>`  &nbsp; `<=` &nbsp;  `>=`
+    * 邏輯運算 : `&&` &nbsp;  `||` &nbsp;  `!`
+    * 三元運算子 : `? :`
+    * 指派 : `=` &nbsp; `+=` &nbsp; `-=` &nbsp; `*=` &nbsp; `/=` &nbsp; `%=`
 
-    +=, -=
+
+  !SLIDE
+    文字與數字
+    ------
+    數字和字串相加，自動會變成字串。
+    `+` 的左右兩邊都是數字時，才會行加法；否則都是字串串接
+    ![images/js/string-number.png](字串加數字等於字串)
+
+    ---
+
+    `parseInt(str, base)`, `parseFloat(str, base)` : 文字轉數字
+    ![images/js/parseInt.png](parseInt)
 
   !SLIDE
     輸出文字
     --------
-    `console.log`
+    `console.log(文字)` → Javascript Console。
+    `document.write(文字)` → 直接到 HTML 裡。
+
+    一般<strong>請不要</strong>使用 `document.write`。
+    `document.write` 只出現在教學裡。
 
   !SLIDE
     JavaSCRIPT
@@ -90,17 +112,15 @@
     指令一行一行寫，沒有道理寫不完。
 
     <div class="fragment">
-      <small>用 `<script type="text/javascript"></script>` 包住，放在 HTML 裡</small>
+      用 `<script type="text/javascript"></script>` 包住，放在 HTML 裡
 
+    {:.html}
       ~~~
         &lt;script type="text/javascript"&gt;
-          console.log("<script> 標籤裡好溫暖喔 (羞)");
+          document.write("script 標籤裡好溫暖喔 (羞)");
         &lt;/script&gt;
-        <p>一片空白。</p>
       ~~~
     </div>
-
-    ----
 
   !SLIDE
     Javascript file
@@ -109,9 +129,10 @@
     * 另外寫成一個 *.js 檔
     *  `<script type="text/javascript" src="路徑與檔名"></script>`
 
+    {:.html}
     ~~~
         &lt;script type="text/javascript" src="sample/included.js"&gt;&lt;/script&gt;
-        <p>仍然一片空白。</p>
+        <p>一片空白。</p>
     ~~~
 
     {:.fragment}
@@ -133,26 +154,68 @@
   !SLIDE
     `if` 條件
     --
-    if-else if-else-endif
+
+    `if`-`else if`-`else`-`endif`
+
+    ~~~
+      var year = 2012;
+      if(year % 400){
+        document.write('閏年');
+      }else if(year % 100){
+        document.write('不是閏年');
+      }else if(year % 4){
+        document.write('閏年');
+      }else{
+        document.write('不是閏年');
+      }
+    ~~~
 
   !SLIDE
     迴圈
     ---
-    for, while
+    `for`, `while`, `break`
+
+    迴圈前可以加上 label 如下：
+
+    {:[data-lang=javascript]}
+    ```
+      outerLoop: for(;;){
+        ……
+          if(...){
+            break outerLoop;
+          }
+        ……
+      }
+    ```
+
 
   !SLIDE
     switch case
     -----------
+    記得 `break;`
+
+    ~~~
+      var name = "董允", comment;
+      switch(name){
+        case '郭攸之':
+        case '費依':
+        case '董允':
+          comment = '此皆良實，志慮忠純';
+          break;
+        case '向寵':
+          comment = '試用之於昔日，先帝稱之曰「能」';
+          break;
+        default:
+          comment = '親賢臣，遠小人，此先漢所以興隆也';
+      }
+      document.write(comment);
+    ~~~
 
   !SLIDE
-    comments
+    註解
     ---
-
-  !SLIDE
-    `try-catch`
-    ---
-    catch 只有一個
-    很少用
+    
+    `/* 多行 */` 與 `// 單行`
 
 !ENDSTACK
 
@@ -163,33 +226,172 @@
 
 !STACK
   !SLIDE
+
+    {:#reserved}
+    保留字
+    ---
+      不能當作變數名稱、屬性名稱的字。
+        abstract boolean `break` byte `case` `catch` char class const `continue`
+        debugger `default` `delete` `do` double `else` enum export extends
+        `false` final finally float `for` `function`
+        goto `if` implements import `in` `instanceof` int 
+        interface long native `new` `null` package private protected public `return`
+        short static super `switch` synchronized
+        `this` `throw` throws transient `true` `try` `typeof`
+        `var` volatile `void` `while` `with`
+
+  !SLIDE
+    特殊值
+    ---
+      `NaN`: Not a number，不是數字。
+      ~~~
+        document.write(
+          26 + parseInt('二十四個比利', 10) );
+      ~~~
+
+      `undefined`: 未定義。變數的預設值、function 預設的回傳值。
+      ~~~
+        var hey, noop = function(){};
+        document.write(hey + '<br>');
+        document.write(noop());
+      ~~~
+
+      `null`: 什麼都不是。
+
+  !SLIDE
+    Strings
+    ---
+      * 單引號 or 雙引號 均可
+      * `\'`  `\"` `\\`  `\n`  `\t`
+      * length 屬性：長度
+      * 無法修改字串 (immutable)。
+      * UCS-2 編碼 （UTF-16 的前身）
+      * [http://www.w3schools.com/jsref/jsref_obj_string.asp](屬性與方法)
+
+    {:.small[data-lang=javascript]}
+    ~~~
+      var str = "侍中尚書、長史、參軍，此悉貞良死節之臣也";
+
+      str[11] = "庛";
+      document.write( str[11] + '<br>' );
+      document.write( str.split("、") + '<br>');
+      document.write( str.slice(11) + '<br>' );
+    ~~~
+
+  !SLIDE
     Functions
     ---
-    'first-class'
-    anonymous
 
-    function argument: 沒有 default value 喔。
+    建一個函數：
+    `function 函式名 (引數們) { ... }`
+    `var 函數名 = function (引數們) { ... }`
 
-    function statement, function declairation
+    呼叫一個函數：
+    `函數名(要傳的引數)`
+
+    {:.fragment}
+    * 函數可以像變數一樣被丟來丟去。
+    * 無法像 C 那樣指定引數預設值。
+    * 呼叫時引數的個數，和函數定義的引數個數可以不一樣。
+
+  !SLIDE
+    Functions
+    ---
+
+    {:.small}
+    ~~~
+      // eachOf：
+      // 將 array 裡的每個東西都丟進 func 當引數
+      var eachOf = function(array, func){
+        for(var i = 0; i < array.length; i+=1){
+          func(array[i]);
+        }
+      }
+
+      eachOf(["棋盤", "稿紙", "綠豆糕"], function(item){
+        document.write('啊，好似' + item + '似的！');
+      });
+    ~~~
+
+    Event handler / callback 很常用
+
 
   !SLIDE
     Objects
     ---
-    `{}`
+    `{name1: value1, name2: value2, ……}`
 
-  !SLIDE
-    Augmenting Objects
-    ---
+    * value 可以是函數
+    * 函數裡 `this` 指自己這個物件
+    * 可以隨時幫 object 增加成員
 
+    {:.small}
+    ~~~
+      var person = {
+        name: "董允",
+        comment: "志慮忠純，是以先帝簡拔以遺陛下。",
+        reward: function(){
+          // this：
+          document.write("臣" + this.name + "謝皇上賜賞。")
+        }
+      };
+
+      // 增添「職位」
+      person.position = "侍中";
+      person.reward("田地");
+      console.log('person:', person);
+    ~~~
 
   !SLIDE
     Arrays
     ---
-    `[]`
+    `[元素1, ……, 元素N]`
+    * 元素不一定要都同一種型態
+    * length 為陣列長度
+    * [http://www.w3schools.com/jsref/jsref_obj_array.asp](屬性與方法)
+
+    {:.small[data-lang=javascript]}
+    ~~~
+      var arr = [3.14, "任意文字", {text: "物件"}, ["另一個", "陣列"]];
+      for(var i=0; i<arr.length; i+=1){
+        document.write( arr[i] + '<br>');
+      }
+      document.write('<hr>請打開 Javascript console');
+      console.log( '陣列長度：' , arr.length);
+      console.log( arr.pop());
+      console.log( 'pop 後陣列：', arr);
+    ~~~
+
   !SLIDE
-    Array Methods
+    Just for reference
     ---
-    lalala
+
+    Javascript 物件變數與陣列只存 reference。
+    {:.small[data-lang=javascript]}
+    ~~~
+      document.write("請看 Javascript console");
+      
+      var obj = {name: "value"},
+          obj2 = obj;
+ 
+      // obj, obj2 reference 相同
+      // obj 和新建的物件 reference 不同，即使值都一樣，
+      // === operator 還是把它認作不同。
+      console.log('obj === obj2 :',  obj === obj2);
+      console.log('obj === {...} :', obj === {name: "value"});
+
+      var num = 3.14,
+          arr = [ "任意文字" ];
+
+      // 蓋一個 function，把 arr、num 傳進去修改
+      var alter = function(a, n){
+        a[0] = "隨便文字"; n = 1.618;
+      };
+      alter(arr, num);
+
+      // 看 arr, num 有沒有被修改
+      console.log('arr:', arr, 'num:', num);
+    ~~~
 
 !ENDSTACK
 
@@ -213,7 +415,7 @@ jQuery
 
     然後施魔法
 
-    {:.small}
+    {:.small.html}
     ~~~
       <p></p>
 
@@ -356,7 +558,7 @@ jQuery
     AFTER
     ---
 
-    <!--<iframe width="150" height="40" style="position: absolute; right: 0; top: 0; opacity: 0.1;" src="http://www.youtube.com/embed/E9gfiTAhScM?rel=0" frameborder="0"></iframe>-->
+    <iframe width="150" height="40" style="position: absolute; right: 0; top: 0; opacity: 0.1;" src="http://www.youtube.com/embed/E9gfiTAhScM?rel=0" frameborder="0"></iframe>
 
     なんということでしょう!
 
@@ -364,7 +566,7 @@ jQuery
     ~~~
       $('#submitform').on('submit', function(e){
         // 偵測是否同意出師表
-        if($('#tos').attr('checked')){
+        if(!$('#tos').attr('checked')){
           alert('請詳閱出師表。');
           e.preventDefault();
         }
@@ -436,24 +638,49 @@ jQuery
     * 在 [http://api.jquery.com/category/manipulation/dom-insertion-inside/](裡面) [http://api.jquery.com/category/manipulation/dom-insertion-outside/](旁邊) 插入/移除 DOM element
     * [http://api.jquery.com/category/manipulation/dom-insertion-around/](包覆)目前 DOM element
 
-    {:.jquery.small}
-    ~~~
-      // TODO:
-      // innerWidth, width, outerWidth
-      // addClass
-
-      // attr, removeAttr
-
-      // clone
-      // append, appendTo
-      // remove
-
-      // wrap
-    ~~~
-
     ---
 
     [http://api.jquery.com/category/manipulation/](Manipulation - jQuery API)
+
+  !SLIDE
+    Manipulation
+    ---
+
+    {:.html.small.maxheight}
+    ~~~
+      &lt;script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"&gt;&lt;/script&gt;
+      
+      <style type="text/css">
+        p{
+          border: 20px solid yellow;
+          margin: 20px; padding: 20px;
+        }
+        .clearstyle{
+          border: 0; margin: 0; font: 20px monospace;
+        }
+      </style>
+
+      <p>我只是個 p。</p>
+
+      &lt;script type="text/javascript" &gt;
+        var old_p = $('p');
+
+        // 複製原本的 <p>，加上 class
+        var new_p = old_p.clone().addClass('clearstyle');
+
+        // 設定新的 <p> 的內容
+        new_p.html([
+          'innerWidth: ', old_p.innerWidth(), '<br>',
+          'outerWidth: ', old_p.outerWidth()
+        ].join(''));
+
+        // 設定 HTML element 屬性
+        new_p.attr('title', '請拿左上角的尺');
+        
+        // 把新的 <p> 插入 DOM element
+        old_p.after(new_p);
+      &lt;/script&gt;
+    ~~~
 
   !SLIDE
     Traversing
@@ -466,6 +693,7 @@ jQuery
     {:.jquery.small}
     ~~~
       // TODO:
+      // .each()
       // find()
       // parentts()
       //  all using conosole.log
@@ -485,6 +713,7 @@ jQuery
     {:.jquery.small}
     ~~~
       // on
+      // this 通常會指定
     ~~~
 
     ---
@@ -518,6 +747,8 @@ jQuery
     * [http://jqueryui.com/demos/dialog/](對話視窗)之類的 Widgets
     * 更多[http://jqueryui.com/demos/show/](特效)
 
+  !ENDSLIDE
+!ENDSTACK
 
 {:.chapter}
 !SLIDE
@@ -531,19 +762,26 @@ jQuery
     * 有三角形
     * 物件可能會變
 
+    ~~~
+      var arr = ['棋盤', '稿紙', '綠豆糕'];
+      console.log('arr: ', arr);
+      arr.shift(); // 移除第 0 個
+      console.log('shift 之後：arr: ', arr);
+    ~~~
+
   !SLIDE
     中斷點
     ---
-
     * 開發人員工具的「Scripts」 面板
     * 選擇要 debug 的檔案
     * 中斷時可用 console
     * "Pause on uncaught exception" 按鈕
+    ![images/js/pausebutton.png](pause)
 
 !ENDSTACK
 
 !SLIDE
-  END
+  THE END
   ===
 
   {:.nav}
