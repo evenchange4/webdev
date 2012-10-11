@@ -831,15 +831,15 @@ a = 3; // 換型態
 <section>
 <h2>神奇的 <code>$</code></h2>
 <p></p>
-<pre data-lang="javascript" style="width: 420px; margin: 0 auto 1em;"><code><!--
--->$(SELECTOR) or $(HTML)
+<pre data-lang="javascript" style="width: 520px; margin: 0 auto 1em;"><code><!--
+-->$(SELECTOR) or $(&quot;HTML放字串裡&quot;)
 <!--
 --></code></pre>
 <p></p>
 <ul>
 <li><code>$</code> 是一個 function。</li>
 <li>傳入 <a href="http://api.jquery.com/category/selectors/" target="_blank">css selector</a> → 回傳找到的 element</li>
-<li>傳入 HTML tag → 回傳新蓋的 element</li>
+<li>傳入 HTML tag 字串 → 回傳新蓋的 element</li>
 </ul>
 <hr>
 <p></p>
@@ -1233,7 +1233,7 @@ a = 3; // 換型態
 <li><code>ready</code>：DOM 載入完成時</li>
 <li><code>error</code>：圖片載入錯誤時</li>
 </ul>
-<p></p>
+<p><!--</p>
 </section>
 <section>
 <h2>Exercise</h2>
@@ -1248,7 +1248,7 @@ a = 3; // 換型態
 <li>結束編輯時，將目前的所有項目存進 <code>localStorage</code>。順序要保留。</li>
 <li>頁面剛被打開時，從 <code>localStorage</code> 裡撈之前存的資料。</li>
 </ul>
-<p></p>
+<p>--></p>
 </section>
 </section>
 <p></p>
@@ -1323,8 +1323,8 @@ a = 3; // 換型態
             function(data, status){
               console.log('data', data);
               console.log('status', status);
-              $('<img>').attr('src', data.picture)
-                        .appendTo('body');
+              $('<span></span>').text(data.name)
+                                .appendTo('body');
             },
             'json'
           );
@@ -1355,8 +1355,8 @@ a = 3; // 換型態
             function(data, status){
               console.log('data', data);
               console.log('status', status);
-              $('<img>').attr('src', data.picture)
-                        .appendTo('body');
+              $('<span></span>').text(data.name)
+                                .appendTo('body');
             }
           );
         });
@@ -1434,6 +1434,8 @@ a = 3; // 換型態
 <li>jQuery UI 是複雜程度適中的一種 jQuery plugin</li>
 </ul>
 <p></p>
+<p class="fragment">而且作業會用到。</p>
+<p></p>
 </section>
 <section id="jQueryUI-install">
 <h2>安裝 jQuery UI</h2>
@@ -1502,7 +1504,7 @@ a = 3; // 換型態
 <p>詳細的初始化 <code>option</code>、<code>event</code>、<code>method</code>，都在文件下方。</p>
 <p></p>
 <p></div></p>
-<p></p>
+<p><!--</p>
 </section>
 <section>
 <h2>Demo</h2>
@@ -1519,7 +1521,7 @@ a = 3; // 換型態
 <p></p>
 <p><hr></p>
 <p><a href="sample/jqueryui-exercise.html">修改後</a></p>
-<p></p>
+<p>--></p>
 </section>
 </section>
 <p></p>

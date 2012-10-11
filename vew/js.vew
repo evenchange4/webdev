@@ -802,14 +802,14 @@ jQuery
     神奇的 `$`
     ---
 
-    {:[data-lang=javascript][style=width: 420px; margin: 0 auto 1em;]}
+    {:[data-lang=javascript][style=width: 520px; margin: 0 auto 1em;]}
     ```
-      $(SELECTOR) or $(HTML)
+      $(SELECTOR) or $("HTML放字串裡")
     ```
 
     * `$` 是一個 function。
     * 傳入 [http://api.jquery.com/category/selectors/](css selector) → 回傳找到的 element
-    * 傳入 HTML tag → 回傳新蓋的 element
+    * 傳入 HTML tag 字串 → 回傳新蓋的 element
 
     ---
 
@@ -1196,7 +1196,7 @@ jQuery
     ### 載入相關
     * `ready`：DOM 載入完成時
     * `error`：圖片載入錯誤時
-
+<!--
   !SLIDE
     Exercise
     ---
@@ -1209,7 +1209,7 @@ jQuery
     * 打完字後按 enter 鍵，可以結束編輯。
     * 結束編輯時，將目前的所有項目存進 `localStorage`。順序要保留。
     * 頁面剛被打開時，從 `localStorage` 裡撈之前存的資料。
-
+-->
 !ENDSTACK
 
 
@@ -1277,8 +1277,8 @@ jQuery
             function(data, status){
               console.log('data', data);
               console.log('status', status);
-              $('<img>').attr('src', data.picture)
-                        .appendTo('body');
+              $('<span></span>').text(data.name)
+                                .appendTo('body');
             },
             'json'
           );
@@ -1308,8 +1308,8 @@ jQuery
             function(data, status){
               console.log('data', data);
               console.log('status', status);
-              $('<img>').attr('src', data.picture)
-                        .appendTo('body');
+              $('<span></span>').text(data.name)
+                                .appendTo('body');
             }
           );
         });
@@ -1386,6 +1386,9 @@ jQuery
     * jQuery UI 元件有統一的 API
     * jQuery UI 是複雜程度適中的一種 jQuery plugin
 
+    {:.fragment}
+    而且作業會用到。
+
   {:#jQueryUI-install}
   !SLIDE
     安裝 jQuery UI
@@ -1448,7 +1451,7 @@ jQuery
       詳細的初始化 `option`、`event`、`method`，都在文件下方。
 
     </div>
-
+<!--
   !SLIDE
     Demo
     ---
@@ -1463,7 +1466,7 @@ jQuery
 
     <hr>
     [sample/jqueryui-exercise.html](修改後)
-
+-->
 !ENDSTACK
 
 {:.chapter}
