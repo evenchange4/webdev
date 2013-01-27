@@ -1,8 +1,0 @@
-.DS_Store
-.svn
-log/*.log
-tmp/**
-*.sublime-workspace
-*.sublime-project
-.sass-cache
-*.swp

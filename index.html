@@ -1,67 +1,74 @@
-<!DOCTYPE HTML>
-<html lang="en-US">
-<head>
-  <meta charset="UTF-8">
-  <title>WebDev Tutorial</title>
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/styles.css">
-  <style type="text/css">
-    #reveal{
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 1000px; margin-left: -500px;
-      height: 200px; margin-top: -130px;
-      text-align: center;
-    }
-    #reveal h1{
-      font-size: 60px;
-    }
-    #reveal h2{
-      font-size: 25px;
-      color: #ccc;
-      text-shadow: 0 2px #444;
-    }
-    #reveal p{
-      margin-top: 20px;
-      font-size: 14px;
-    }
-  </style>
-</head>
-<body id="reveal">
-  <h1>Web Frontend Programming</h1>
-  <h2>http://mrorz.github.com/webdev/</h2>
-  <ul class="nav">
-    <li><a href="html.html">HTML</a></li>
-    <li><a href="css.html">CSS</a></li>
-    <li><a href="js.html">Javascript</a></li>
-    <li><a href="advancedjs.html">Advanced JS</a></li>
-  </ul>
+<!DOCTYPE html>
+<html>
 
-  <p>先說我沒時間測試 Google Chrome 以外的瀏覽器。</p>
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="網頁開發學習 : 助教的投影片。" />
 
-  <script type="text/javascript">
-  var supports3DTransforms =
-        document.body.style.perspectiveProperty !== undefined ||
-        document.body.style.WebkitPerspective !== undefined ||
-        document.body.style.MozPerspective !== undefined ||
-        document.body.style.msPerspective !== undefined,
-      linkify = function() {
-        if( supports3DTransforms ) {
-          var nodes = document.querySelectorAll( '#reveal a' );
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-          for( var i = 0, len = nodes.length; i < len; i++ ) {
-              var node = nodes[i];
+    <title>網頁開發學習</title>
+  </head>
 
-              if( node.textContent && !node.querySelector( 'img' ) && ( !node.className || !( node.classList.contains('roll') ) ) ) {
-                  node.classList.add( 'roll' );
-                  node.innerHTML = '<span data-title="'+ node.text +'">' + node.innerHTML + '</span>';
-              }
-          }
-        }
-      };
+  <body>
 
-  linkify();
-  </script>
-</body>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/evenchange4/webdev">View on GitHub</a>
+
+          <h1 id="project_title">網頁開發學習</h1>
+          <h2 id="project_tagline">助教的投影片。</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/evenchange4/webdev/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/evenchange4/webdev/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>Welcome to GitHub Pages.</h3>
+
+<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+
+<pre><code>$ cd your_repo_root/repo_name
+$ git fetch origin
+$ git checkout gh-pages
+</code></pre>
+
+<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+
+<h3>Designer Templates</h3>
+
+<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+
+<h3>Rather Drive Stick?</h3>
+
+<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+
+<h3>Authors and Contributors</h3>
+
+<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+
+<h3>Support or Contact</h3>
+
+<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">網頁開發學習 maintained by <a href="https://github.com/evenchange4">evenchange4</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
 </html>
